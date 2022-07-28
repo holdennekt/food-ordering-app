@@ -89,13 +89,13 @@ class OrdersProvider {
       clientAdress,
       price,
     });
-    products.forEach((product) => {
-      OrderProduct.create({
+    for (const product of products) {
+      await OrderProduct.create({
         count: product.count,
         orderId: order.id,
         productId: product.id,
       });
-    });
+    }
     return order;
   }
 
