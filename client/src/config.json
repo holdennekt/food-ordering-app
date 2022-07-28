@@ -1,0 +1,4 @@
+{
+  "API_BASEURL": "http://localhost:4000/api",
+  "WS_BASEURL": "http://localhost:4000"
+}

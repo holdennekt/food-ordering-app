@@ -1,0 +1,12 @@
+{
+  "name": "test-project-internet-shop",
+  "version": "1.0.0",
+  "description": "delivery app, test project for eliftech school",
+  "main": "server/index.js",
+  "scripts": {
+    "start": "cd client && npm run build && cd ../server && npm start",
+    "start:dev": "cd client && npm run build && cd ../server && npm start:dev"
+  },
+  "author": "",
+  "license": "ISC"
+}
