@@ -1,7 +1,7 @@
 const { Strategy: LocalStrategy } = require("passport-local");
 const { Strategy: JwtStrategy, ExtractJwt } = require("passport-jwt");
 const bcrypt = require("bcryptjs");
-const { adminsProvider, clientsProvider } = require("./providers");
+const { adminsProvider } = require("./providers");
 
 const localStrategy = new LocalStrategy(async (username, password, done) => {
   const user = await adminsProvider.getOneByName(username);
