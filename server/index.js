@@ -40,6 +40,11 @@ app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "..", "client", "build", "index.html"));
 });
 
+app.use((err, req, res, next) => {
+  console.error(err);
+  return res.status(500).json({ message: "Internal error", err });
+});
+
 const startApp = async () => {
   try {
     await sequelize.authenticate();

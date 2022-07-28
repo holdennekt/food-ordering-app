@@ -20,8 +20,14 @@ function AdminLogin() {
     const token = JSON.parse(localStorage.getItem("token"));
     if (token) {
       const headers = { authorization: `Bearer ${token}` };
-      fetch(config.API_BASEURL + "/admin/verifyJwt", { headers, method: "POST" })
-        .then((res) => res.json())
+      fetch(config.API_BASEURL + "/admin/verifyJwt", {
+        headers,
+        method: "POST",
+      })
+        .then((res) => {
+          if (res.status === 500) throw new Error("Internal server error");
+          return res.json();
+        })
         .then(({ token }) => {
           localStorage.setItem("token", JSON.stringify(token));
           navigate("/admin/orders");
@@ -53,7 +59,10 @@ function AdminLogin() {
         },
         body: JSON.stringify({ username, password }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 500) throw new Error("Internal server error");
+          return res.json();
+        })
         .then(({ token }) => {
           localStorage.setItem("token", JSON.stringify(token));
           navigate("/admin/orders");
@@ -105,14 +114,16 @@ function AdminLogin() {
           </Button>
         </Form>
       </Card>
-      <MyToasts props={{
-        succesText: "",
-        showSuccessToast: false,
-        setShowSuccessToast: () => {},
-        failureText,
-        showFailureToast,
-        setShowFailureToast,
-      }} />
+      <MyToasts
+        props={{
+          succesText: "",
+          showSuccessToast: false,
+          setShowSuccessToast: () => {},
+          failureText,
+          showFailureToast,
+          setShowFailureToast,
+        }}
+      />
     </Container>
   );
 }

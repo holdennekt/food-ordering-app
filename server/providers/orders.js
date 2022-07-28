@@ -100,20 +100,22 @@ class OrdersProvider {
   }
 
   async setInactive(id) {
-    return Order.update({ isActive: false }, { where: { id, isActive: true } })
-      .then(async (results) => {
-        if (results[0] === 0) return Promise.resolve([0, null]);
-        const order = await Order.findByPk(id, {
-          include: [
-            {
-              model: OrderProduct,
-              as: "products",
-              include: [{ model: Product, as: "product" }],
-            },
-          ],
-        });
-        return Promise.resolve([results[0], order]);
+    return Order.update(
+      { isActive: false },
+      { where: { id, isActive: true } }
+    ).then(async (results) => {
+      if (results[0] === 0) return Promise.resolve([0, null]);
+      const order = await Order.findByPk(id, {
+        include: [
+          {
+            model: OrderProduct,
+            as: "products",
+            include: [{ model: Product, as: "product" }],
+          },
+        ],
       });
+      return Promise.resolve([results[0], order]);
+    });
   }
 }
 

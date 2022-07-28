@@ -4,5 +4,9 @@ const { marketsProvider } = require("../providers");
 
 module.exports = () =>
   router.get("/", async (req, res) => {
-    return res.json(await marketsProvider.getAll());
+    try {
+      return res.json(await marketsProvider.getAll());
+    } catch (e) {
+      next(e);
+    }
   });

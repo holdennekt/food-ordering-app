@@ -22,7 +22,10 @@ function ActiveOrders({
         method: "PATCH",
         headers,
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 500) throw new Error("Internal server error");
+          return res.json();
+        })
         .then(([affectedRows, markedOrder]) => {
           if (affectedRows !== 0) {
             setOrders((prevOrders) =>
@@ -42,7 +45,15 @@ function ActiveOrders({
         })
         .catch((err) => appearFailureToast(err.message));
     },
-    [token, setOrders, appearSuccesToast, appearFailureToast, COMPLETED_ORDERS_LIMIT, setCompletedOrders, setTotalCompletedOrders]
+    [
+      token,
+      setOrders,
+      appearSuccesToast,
+      appearFailureToast,
+      COMPLETED_ORDERS_LIMIT,
+      setCompletedOrders,
+      setTotalCompletedOrders,
+    ]
   );
 
   return (

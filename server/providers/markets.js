@@ -13,9 +13,9 @@ class MarketsProvider {
 
   async create(name, products) {
     const market = await Market.create({ name });
-    products.forEach((product) =>
-      Product.create({ ...product, marketId: market.id })
-    );
+    for (const product of products) {
+      await Product.create({ ...product, marketId: market.id });
+    }
     return market;
   }
 }

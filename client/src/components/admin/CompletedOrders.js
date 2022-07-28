@@ -20,12 +20,15 @@ function CompletedOrders({
       const headers = { authorization: `Bearer ${token}` };
       fetch(
         config.API_BASEURL +
-        `/orders/completed?page=${page}&limit=${ORDERS_LIMIT}`,
+          `/orders/completed?page=${page}&limit=${ORDERS_LIMIT}`,
         {
           headers,
         }
       )
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 500) throw new Error("Internal server error");
+          return res.json();
+        })
         .then(({ count, rows }) => {
           setOrders(rows);
           setTotalOrders(count);
@@ -53,7 +56,10 @@ function CompletedOrders({
         <div>{err}</div>
       ) : (
         orders.map((order) => (
-          <div className="d-flex my-2 p-2 border border-dark rounded-2" key={order.id}>
+          <div
+            className="d-flex my-2 p-2 border border-dark rounded-2"
+            key={order.id}
+          >
             <div className="p-2">
               <OrderClient
                 name={order.clientName}

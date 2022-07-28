@@ -38,7 +38,10 @@ function Orders() {
     if (!token) return;
     const headers = { authorization: `Bearer ${token}` };
     fetch(config.API_BASEURL + "/orders/active", { headers })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 500) throw new Error("Internal server error");
+        return res.json();
+      })
       .then((orders) => setActiveOrders(orders))
       .catch((err) => setFetchErr(err.message));
   }, [token]);

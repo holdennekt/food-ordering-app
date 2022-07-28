@@ -1,4 +1,5 @@
-require("dotenv").config();
+const path = require("path");
+require("dotenv").config({ path: path.join(__dirname, ".env")});
 const { sequelize } = require("./models/db");
 const bcrypt = require("bcryptjs");
 const { marketsProvider } = require("./providers/markets");
@@ -139,6 +140,7 @@ const insert = async () => {
   for (const market of markets) {
     await marketsProvider.create(market.name, market.products);
   }
+  process.exit();
 };
 
 insert();

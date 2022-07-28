@@ -17,7 +17,6 @@ function CartProduct({
           onChange={(e) => setCount(parseInt(e.target.value))}
           value={count}
         />
-        {/* <div className="d-flex justify-content-between align-items-center mt-2"></div> */}
       </div>
     </div>
   );

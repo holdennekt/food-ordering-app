@@ -16,6 +16,10 @@ function ShoppingCart({ cart, setCart }) {
   const [err, setErr] = useState({});
 
   const setCount = (product, count) => {
+    if (count === 0)
+      return setCart((prevCart) =>
+        prevCart.filter((val) => val.id !== product.id)
+      );
     setCart((prevCart) =>
       prevCart.map((val) => (product.id === val.id ? { ...val, count } : val))
     );
@@ -87,7 +91,10 @@ function ShoppingCart({ cart, setCart }) {
           price: totalPrice,
         }),
       })
-        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 500) throw new Error("Internal server error");
+          return res.json();
+        })
         .then(() => {
           setShowSuccessToast(true);
           setCart([]);

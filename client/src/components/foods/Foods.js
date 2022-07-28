@@ -3,15 +3,22 @@ import { Col, Container, Row, Spinner } from "react-bootstrap";
 import MarketsList from "./MarketsList";
 import Product from "./Product";
 import config from "../../config.json";
+import MyToasts from "../NotificationToasts";
 
 function Foods({ cart, setCart }) {
   const marketsRef = useRef([]);
   const [selectedMarket, setSelectedMarket] = useState({ productItems: [] });
   const [err, setErr] = useState("");
 
+  const [failureText, setFailureText] = useState("");
+  const [showFailureToast, setShowFailureToast] = useState(false);
+
   useEffect(() => {
     fetch(config.API_BASEURL + "/markets")
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 500) throw new Error("Internal server error");
+        return res.json();
+      })
       .then((markets) => {
         if (markets.length > 0) {
           marketsRef.current = markets;
@@ -22,6 +29,10 @@ function Foods({ cart, setCart }) {
   }, []);
 
   const addToCart = (product) => {
+    if (cart[0] && cart[0].marketId !== product.marketId) {
+      setFailureText("Products only from same market allowed");
+      return setShowFailureToast(true);
+    }
     const cartProduct = cart.find((val) => val.id === product.id);
     if (cartProduct) {
       setCart((prevCart) =>
@@ -89,6 +100,16 @@ function Foods({ cart, setCart }) {
           )}
         </Col>
       </Row>
+      <MyToasts
+        props={{
+          succesText: "",
+          showSuccessToast: false,
+          setShowSuccessToast: () => {},
+          failureText,
+          showFailureToast,
+          setShowFailureToast,
+        }}
+      />
     </Container>
   );
 }
