@@ -32,9 +32,7 @@ function AdminLogin() {
           localStorage.setItem("token", JSON.stringify(token));
           navigate("/admin/orders");
         })
-        .catch((err) => {
-          usernameRef.current.focus();
-        });
+        .catch(() => usernameRef.current.focus());
     }
   }, [navigate]);
 
@@ -77,7 +75,7 @@ function AdminLogin() {
   return (
     <Container className="d-flex justify-content-center align-items-center">
       <Card>
-        <Form onSubmit={handleSubmit}>
+        <Form className="p-3" onSubmit={handleSubmit}>
           <Form.Group>
             <Form.Label htmlFor="login">Login:</Form.Label>
             <Form.Control
@@ -94,7 +92,7 @@ function AdminLogin() {
               <Form.Text className="text-danger">{err.login}</Form.Text>
             )}
           </Form.Group>
-          <Form.Group>
+          <Form.Group className="mt-2">
             <Form.Label htmlFor="password">Password:</Form.Label>
             <Form.Control
               id="password"
@@ -109,7 +107,7 @@ function AdminLogin() {
               <Form.Text className="text-danger">{err.password}</Form.Text>
             )}
           </Form.Group>
-          <Button variant="outline-primary" type="submit">
+          <Button className="mt-2" variant="outline-primary" type="submit">
             Sign in
           </Button>
         </Form>
