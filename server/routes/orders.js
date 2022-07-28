@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const { clientsProvider, ordersProvider } = require("../providers");
+const { ordersProvider } = require("../providers");
 
 module.exports = (jwtAuth, sendNewOrder) => {
   router.get("/active", jwtAuth, async (req, res) => {

@@ -41,3 +41,6 @@ node server/insertDbData.js
 ```
 npm start
 ```
+
+# Or open link
+[ec2-18-212-66-88.compute-1.amazonaws.com](ec2-18-212-66-88.compute-1.amazonaws.com)
