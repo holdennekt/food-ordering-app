@@ -3,7 +3,6 @@ require("dotenv").config({ path: path.join(__dirname, ".env") });
 const express = require("express");
 const app = express();
 const { createServer } = require("http");
-const path = require("path");
 const cors = require("cors");
 const router = require("./routes");
 const { sequelize } = require("./models/db");
