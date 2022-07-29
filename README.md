@@ -23,7 +23,7 @@ Create .env file in server folder with structure like this and fill your data:
 SERVER_HOST=localhost
 SERVER_PORT=4000
 JWT_SECRET=hmmmWhatCanBeHere..
-DB_NAME=food-ordering
+DB_NAME=food-delivery
 DB_USER=myuser
 DB_PASSWORD=mypassword
 DB_HOST=localhost
