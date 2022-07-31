@@ -10,7 +10,7 @@ git clone https://github.com/holdennekt/food-ordering-app
 
 ### 2. Create db
 
-For this project you'll need postgresql db installed on your machine.
+For this project you'll need [postgresql](https://www.postgresql.org/download) db installed on your machine.
 
 ```
 psql -c 'create database "food-delivery";'
