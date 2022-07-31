@@ -1,4 +1,4 @@
-# Delivery app, test project for Eliftech school
+# Delivery app, test project for *Eliftech school*
 
 ### 1. Install
 
@@ -18,7 +18,7 @@ psql -c 'create database "food-delivery";'
 
 ### 3. Fill config data
 
-Create .env file in server folder with structure like this and fill your data:
+Create **.env** file in server folder with structure like this and fill your data:
 
 ```
 SERVER_HOST=localhost
